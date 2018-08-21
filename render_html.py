@@ -12,12 +12,12 @@ def render_html():
     keys = []
     for i in range(3969):
             keys.append(str(i))
-    print "Connecting to Redis"
+    print("Connecting to Redis")
     pipe = connect_redis().pipeline()
     for key in keys:
         pipe.hgetall(key)
     values = pipe.execute()
-    print "Data copied from Redis"
+    print("Data copied from Redis")
 
     # Construct Array of Dicts
     tiles = []

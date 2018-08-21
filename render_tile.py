@@ -15,16 +15,16 @@ def render_tile(location):
     try:
         tile = contract.call().getTile(location)
     except:
-        print "Can't connect to Parity, or !synced to block #2641527. Waiting \
-        5 seconds..."
+        print("Can't connect to Parity, or !synced to block #2641527. Waiting \
+        5 seconds...")
         tile = False
     while not tile:
         try:
             tile = contract.call().getTile(location)
         except:
             time.sleep(5)
-            print "Can't connect to Parity, or !synced to block #2641527. \
-            Waiting 5 seconds..."
+            print("Can't connect to Parity, or !synced to block #2641527. \
+            Waiting 5 seconds...")
             tile = False
 
     owner = tile[0]
@@ -32,7 +32,7 @@ def render_tile(location):
     image = tile[1]
     price = tile[3]
     tile_name = str(location)
-    print "Rendering " + tile_name + "..."
+    print("Rendering " + tile_name + "...")
     # Defaults if data not set.
     if not url:
         url = get_default_url()

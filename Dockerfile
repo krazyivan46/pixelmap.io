@@ -1,5 +1,12 @@
-FROM ubuntu:trusty
+FROM ubuntu:bionic
 WORKDIR /var/www/html
+
+# Install Python3
+RUN apt-get update \
+  && apt-get install -y python3-pip python3-dev \
+  && cd /usr/local/bin \
+  && ln -s /usr/bin/python3 python \
+  && pip3 install --upgrade pip
 
 # Install Requirements
 RUN apt-get update && apt-get install python-pip python-dev iputils-ping \
@@ -9,11 +16,11 @@ RUN add-apt-repository -y ppa:ethereum/ethereum
 RUN apt-get update && apt-get install -y ethereum redis-server
 
 # Install Parity
-RUN wget http://d1h4xl4cr1h0mo.cloudfront.net/v1.4.5/x86_64-unknown-linux-gnu/parity_1.4.5_amd64.deb && \
-    dpkg -i parity_1.4.5_amd64.deb
+RUN wget https://releases.parity.io/v1.11.8/x86_64-unknown-linux-gnu/parity_1.11.8_ubuntu_amd64.deb && \
+    dpkg -i parity_1.11.8_ubuntu_amd64.deb
 
 # Install Python Packages
-RUN pip install requests web3 redis Pillow jinja2
+RUN pip3 install requests web3 redis Pillow jinja2 gevent
 
 # Manually set up the apache environment variables
 ENV APACHE_RUN_USER www-data
